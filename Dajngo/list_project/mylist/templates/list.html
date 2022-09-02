@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List</title>
+    <style>
+        body{
+            background-color: rgba(227,194,151,1);
+            margin: 0;
+        }
+        header{
+            background-color: rgba(144,46,34,1);
+            display: flex;
+            padding-left:20px;
+            box-shadow:  2px 2px 2px rgba(0,0,0,0.2);
+            color: azure;
+
+        }
+
+        button{
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            box-shadow:  2px 2px 2px rgba(0,0,0,0.2);
+            border: unset;
+            background-color:rgba(227,194,151,1) ;
+            font-size: 40px;
+            color: azure;
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            cursor:pointer;
+        }
+
+        .list-item{
+
+            background-color: azure;
+            height: 60px;
+            box-shadow:  2px 2px 2px rgba(0,0,0,0.2);
+            padding-left: 20px;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>
+        My List
+        </h1>
+    </header>
+        {% for row in all_items %}
+        <div class="list-item">
+            <input type="checkbox"><h3>{{ row.context }} </h3>    <i>{{row.time}}</i> 
+        </div>
+        {% endfor %}
+
+     
+
+        <button id="add">
+            +
+        </button>
+   
+    
+    <script>
+        addButton = document.getElementById('add');
+        addButton.addEventListener('click',function(){
+            let task = prompt('neu Task adding');
+            let token = '{{ csrf_token }}';
+
+            let formData = new FormData();
+            formData.append('task', task);
+            formData.append('csrfmiddlewaretoken',token);
+            fetch('/mylist/',{
+                method:'POST',
+                body:formData
+            });
+
+            window.location.reload();
+        })
+
+       
+
+
+
+    </script>
+</body>
+</html>
