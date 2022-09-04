@@ -5,14 +5,54 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>signUp</title>
+
+    {% load static %}
+     <link rel="stylesheet" href="{% static 'login.css'%}">
+     
 </head>
 <body>
-    <form action="" method="post">
-        {% csrf_token %}
-        <p>name:<input type="text" name="username" placeholder="username"></p>
-        <p>password:<input type="password" name="password" placeholder="password"></p>
-        <input type="submit" value="signUp">
-    </form>
+
+    <div class="container">
+    <div class="card">
+        <div class="inner-box" id="inner-box">
+
+
+            <div class="box-front"><h2>LOGIN</h2>
+                <form name="login" action="mylist" method="post">
+                    {% csrf_token %}
+                    <input class="input-box" type="text" name="username" placeholder="username"></p>
+                    <input class="input-box" type="password" name="password" placeholder="password" required></p>
+                    <button class="submit-btn" type="submit" value="login">LOGIN</button>
+                     
+                </form> 
+                <button type="button" class="btn" onclick="flip()">SIGNUP</button>
+                <a href="">Forget Password</a>
+            </div>
+           
+            
+            <div class="box-back"><h2>SIGNUP</h2>
+                <form name="signup" action="" method="post">
+                    {% csrf_token %}
+                    <input class="input-box" type="text" name="signUsername" placeholder="username"> 
+                    <input class="input-box" type="password" name="signPassword" placeholder="password" required> 
+                    <button  class="submit-btn" type="submit" value="login">SIGNUP</button>
+                    
+                </form>
+                <button onclick="flipBack()" class="submit-btn">back to sign in</button>
+            </div>
+        </div>
+
+    </div>
+    </div>
+ <script>
+    var inBox = document.getElementById('inner-box');
+    function flip(){
+        inBox.style.transform = "rotateY(-180deg)"
+    }
+    function flipBack(){
+        inBox.style.transform = "rotateY(0deg)"
+    }
+ </script>   
   
 </body>
 </html>

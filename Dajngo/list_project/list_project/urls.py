@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from mylist.views import mylist
-from mylist.views import signUp
+ 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('mylist/', mylist),
-    path('user/',signUp)
+    path('mylist', mylist),
+    # path('',signUp)
+    path('',include('mylist.urls'))
 ]

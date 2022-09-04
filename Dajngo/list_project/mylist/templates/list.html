@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
         body{
             background-color: rgba(227,194,151,1);
@@ -36,14 +37,34 @@
 
         .list-item{
 
-            background-color: azure;
+            background-color:rgb(227, 194, 151);
             height: 60px;
-            box-shadow:  2px 2px 2px rgba(0,0,0,0.2);
+            box-shadow:  2px 2px 2px rgba(0,0,0,0.31);
             padding-left: 20px;
             display: flex;
             align-items: center;
             border-top: 1px solid rgba(0,0,0,0.3);
         }
+        .list-item:hover{
+            background-color:rgb(221, 151, 60);
+        }
+        #choosen{
+            margin-right: 080px;
+            font-size: 30px;
+            text-align: center;
+            vertical-align:middle;
+            
+            
+        }
+        #delete{
+            margin-right: 160px;
+            font-size: 30px;
+            text-align: center;
+            vertical-align:middle;
+            
+            
+        }
+        
     </style>
 </head>
 <body>
@@ -53,15 +74,29 @@
         </h1>
     </header>
         {% for row in all_items %}
-        <div class="list-item">
-            <input type="checkbox"><h3>{{ row.context }} </h3>    <i>{{row.time}}</i> 
-        </div>
+        
+            {% if row.done %}
+            <div class="list-item" style="background-color: rgb(224, 165, 87);">
+            <input type="checkbox" id="single_task"  name="single_task" checked  ><h3>{{ row.context }} </h3>    <i>{{row.time}}</i>
+            </div> 
+            {% else %}
+            <div class="list-item">
+            <input type="checkbox" id="single_task" name="single_task"><h3>{{ row.context }} </h3>    <i>{{row.time}}</i> 
+            </div>
+            {% endif %}
+        
         {% endfor %}
 
      
 
         <button id="add">
             +
+        </button>
+        <button id="choosen">
+            $
+        </button>
+        <button id="delete">
+            ×
         </button>
    
     
@@ -72,15 +107,59 @@
             let token = '{{ csrf_token }}';
 
             let formData = new FormData();
+            formData.append('type','add');
             formData.append('task', task);
             formData.append('csrfmiddlewaretoken',token);
-            fetch('/mylist/',{
+            fetch('/mylist',{
                 method:'POST',
                 body:formData
             });
 
             window.location.reload();
         })
+
+        choosenButton = document.getElementById('choosen');
+        choosenButton.addEventListener('click',function(){
+             
+            let single_task = document.getElementsByName("single_task");
+            let formData = new FormData();
+            let token = '{{ csrf_token }}';
+            let id_array = [];
+            for(let i = 1;i<single_task.length;i++){
+                if(single_task[i].checked){
+                    console.log(single_task[i])
+                    id_array.push(i+1)
+                   
+
+                }
+            } 
+            formData.append('type','choose');
+            formData.append('id',id_array)
+            formData.append('csrfmiddlewaretoken',token);
+              fetch('/mylist',{
+                        method:'POST',
+                        body: formData
+                    })
+
+            window.location.reload();        
+        })
+
+
+        deleteButton = document.getElementById('delete');
+        deleteButton.addEventListener('click',function(){
+            let formData = new FormData();
+            let token = '{{ csrf_token }}';
+            formData.append('type','delete');
+            formData.append('csrfmiddlewaretoken',token);
+            fetch('/mylist',{
+                        method:'POST',
+                        body: formData
+                    })
+            window.location.reload();         
+        })
+        
+
+        
 
        
 
