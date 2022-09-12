@@ -16,12 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from mylist.views import mylist
+from mylist.views import index
+from usermanagement.views import signIn
  
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('mylist', mylist),
     # path('',signUp)
-    path('',include('mylist.urls'))
+    path('index',index),
+    path('',include('mylist.urls')),
+    path('signin',signIn)
 ]

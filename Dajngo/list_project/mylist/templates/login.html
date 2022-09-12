@@ -18,14 +18,14 @@
 
 
             <div class="box-front"><h2>LOGIN</h2>
-                <form name="login" action="mylist" method="post">
+                <form name="login" action="" method="post">
                     {% csrf_token %}
                     <input class="input-box" type="text" name="username" placeholder="username"></p>
                     <input class="input-box" type="password" name="password" placeholder="password" required></p>
-                    <button class="submit-btn" type="submit" value="login">LOGIN</button>
+                    <button id="loginBtn" class="submit-btn" type="submit" value="login">LOGIN</button>
                      
                 </form> 
-                <button type="button" class="btn" onclick="flip()">SIGNUP</button>
+                <button  type="button" class="btn" onclick="flip()">SIGNUP</button>
                 <a href="">Forget Password</a>
             </div>
            
@@ -38,6 +38,7 @@
                     <button  class="submit-btn" type="submit" value="login">SIGNUP</button>
                     
                 </form>
+                <h2>{{msg}} !!!</h2> 
                 <button onclick="flipBack()" class="submit-btn">back to sign in</button>
             </div>
         </div>
@@ -52,6 +53,16 @@
     function flipBack(){
         inBox.style.transform = "rotateY(0deg)"
     }
+    var loginBtn = document.getElementById('loginBtn');
+    loginBtn.addEventListener('click',function(){
+
+        let formData = new FormData();
+        formData.append('type','authenticate');
+        fetch('/login',{
+            method:"POST",
+            body:formData
+        })
+    })
  </script>   
   
 </body>

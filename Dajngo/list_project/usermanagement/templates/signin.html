@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="card">
+            <div class="inner-box" id="inner-box">
+    
+     
+               
+                
+                <div class="box-back"><h2>SIGNUP</h2>
+                    <form name="signup" action="" method="post">
+                        {% csrf_token %}
+                        <input class="input-box" type="text" name="signUsername" placeholder="username"> 
+                        <input class="input-box" type="password" name="signPassword" placeholder="password" required> 
+                        <button  class="submit-btn" type="submit" value="signup">SIGNUP</button>
+                        
+                    </form>
+                    <h2>{{msg}} !!!</h2> 
+                    <button onclick="flipBack()" class="submit-btn">back to sign in</button>
+                </div>
+
+                <div class="box-front"><h2>LOGIN</h2>
+                    <form name="login" action="mylist" method="post">
+                        {% csrf_token %}
+                        <input class="input-box" type="text" name="username" placeholder="username"></p>
+                        <input class="input-box" type="password" name="password" placeholder="password" required></p>
+                        <button id="loginBtn" class="submit-btn" type="submit" value="login">LOGIN</button>
+                         
+                    </form> 
+                    <button  type="button" class="btn" onclick="flip()">SIGNUP</button>
+                    <a href="">Forget Password</a>
+                </div>
+
+            </div>
+    
+        </div>
+        </div>
+</body>
+</html>

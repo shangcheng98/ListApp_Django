@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+       body{
+        font-family: sans-serif;
+        background-color: #AAADB6;
+       }
+       *{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        text-decoration: none;
+       }
+       .sidebar{
+        position: fixed;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background: #86ab20;
+       }
+       .sidebar header{
+        font-size: 23px;
+        color: white;
+        text-align: center;
+        line-height: 70px;
+        background-color: #66811a;
+        user-select: none;
+       }
+
+       .sidebar ul a{
+        display: block;
+        height: 100%;
+        width: 100%;
+        line-height: 65px;
+        font-size: 20px;
+        color: aliceblue;
+        padding-left: 50px;
+        box-sizing: border-box;
+        border-top: 1px solid black;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .user{
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+         
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <header>My App</header>
+        <ul>
+            <li><a href="mylist">MY LIST</a></li>
+            <li><a href="#">line 1</a></li>
+            <li><a href="#">line 1</a></li>
+            <li><a href="#">line 1</a></li>
+            <li><a href="#">line 1</a></li>
+            <li><a href="#">about me</a></li>
+
+        </ul>
+    </div>
+      
+  
+
+    <div class="user">
+       
+        <class="info"> 
+            <div>        
+                <h4>{{ name }} welcome</h4>    
+            </div>            
+            <h3>            
+                <label>user: </label>           
+                {{ request.user }}        
+            </h3>        
+            <h3>            
+                <label>user.name: </label>           
+                {{ request.user.username }}        
+            </h3>        
+            <h3>            
+                <label>user power: </label>            
+                {{ request.user.is_superuser }}        
+            </h3>
+            <div>all user we have:
+            {% if request.user.is_superuser %}
+                {% for user in user_all %}
+            <h5>
+                 {{user.username}}
+            </h5>
+                {% endfor %}
+            {% endif %}
+            </div>
+             <div>    
+            <a href="logout">LOGOUT</a>
+             </div>    
+        </div>
+       
+    </div> 
+</body>
+</html>
